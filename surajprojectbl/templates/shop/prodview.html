@@ -1,0 +1,74 @@
+{% extends 'baseShop.html' %}
+
+{% block title %} productview {{product.product_name}} {% endblock %}
+
+
+
+{% block body %}
+<div class="container my-4">
+
+  <div class="row mx-2">
+
+      <div class="col-md-4">
+        <div class="row">
+           <img src='/media/{{product.image}}' width="270px" height="300px">
+        </div>
+        <div class="row">
+          <button class="btn btn-warning mx-2">Buy Now</button>
+          <button class="btn btn-primary">Add to cart</button>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <h5>{{product.product_name}}</h5>
+        <p>{{product.desc}}</p>
+        <h5>Rs {{product.price}}</h5>
+      </div>
+      <div class="container">
+        <div class="my-3 fb-like mx-2" data-href="http://127.0.0.1:8000/shop/productview/{{i.product_id}}" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+      </div>
+  </div>
+
+      <div class="fb-comments" data-href="http://127.0.0.1:8000/shop/productview/{{i.product_id}}" data-width="" data-numposts="3"></div>
+
+</div>
+  {% endblock %}
+
+{% block js %}
+<script>
+
+    console.log('working');
+    if(localStorage.getItem('cart') == null){
+    var cart = {};
+    }
+
+    else{
+        cart = JSON.parse(localStorage.getItem('cart'));
+        document.getElementById('cart').innerHTML = Object.keys(cart).length;
+
+    }
+
+    $('.cart').click(function(){
+    console.log('clicked');
+    var idstr = this.id.toString();
+    console.log(idstr);
+
+    if (cart[idstr] != undefined){
+    cart[idstr] = cart[idstr] + 1;
+    }
+    else{
+    cart[idstr] = 1;
+    }
+    console.log(cart);
+    localStorage.setItem('cart',JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    });
+
+   $('#popcart').popover()
+   document.getElementById('popcart').setAttribute('data-content','<h5>Cart</h5>');
+
+
+
+</script>
+{% endblock %}
+
