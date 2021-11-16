@@ -24,7 +24,7 @@ def home (request):
 
     return render(request, 'home/home.html', {'cap': str_num})
 
-    return render(request,'home/home.html',{'cap':str_num})
+    #return render(request,'home/home.html',{'cap':str_num})
 
 def about(request):
     return render(request,'home/about.html')
